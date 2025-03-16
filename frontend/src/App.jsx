@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css"
 
+
 const API_URL = "http://localhost:5000/api/items";
 
 function App() {
@@ -53,7 +54,7 @@ function App() {
   return (
     
     <div className="container">
-    <h1>React + Express REST API</h1>
+    <h1>ADD OR DELETE</h1>
     <input 
         type="text" 
         value={newItem} 
