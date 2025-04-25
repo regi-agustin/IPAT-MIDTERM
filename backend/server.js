@@ -1,45 +1,67 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const mysql = require('mysql2');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const app = express();
+const PORT = 3000;
 
+// Middleware
 app.use(cors());
-app.use(express.json()); // Allows parsing of JSON request Bodies
+app.use(bodyParser.json());
 
-const items = [
-  { id: 1, name: "Item 1" },
-  { id: 2, name: "Item 2" },
-  { id: 3, name: "Item 3" },
-];
-
-// GET: retriev all items
-app.get("/api/items", (req, res) => {
-  res.json(items);
+// MySQL Connection
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "", // Add your password if needed
+  database: "earist"
 });
 
-// POST: Add a new item
-app.post("/api/items", (req, res) => {
-  const newItem = { id: items.length + 1, name: req.body.name };
-  items.push(newItem);
-  res.status(201).json(newItem);
+db.connect(err => {
+  if (err) {
+    console.error('Database connection error:', err);
+    return;
+  }
+  console.log('Connected to MySQL database.');
 });
 
-// PUT: Update an Item
-app.put('/api/items/:id', (req, res) => {
-  const item = items.find(i => i.id === parseInt(req.params.id));
-  if (!item) return res.status(404).json({ message: "Item not found" });
-  item.name = req.body.name;
-  res.json(item);
+// Fetch all registrations
+app.get('/registrations', (req, res) => {
+  const query = 'SELECT * FROM certificate_of_registration';
+  db.query(query, (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json(results);
+  });
 });
 
-// Delete: remove an Item
-app.delete('/api/items/:id', (req, res) => {
-  const index = items.findIndex(i => i.id === parseInt(req.params.id));
-  if (index === -1) return res.status(404).json({ message: "Item not found" });
+// Add a new registration
+app.post('/registrations', (req, res) => {
+  const data = req.body;
 
-  items.splice(index, 1);
-  res.json({ message: "Item deleted" });
+  const query = `INSERT INTO certificate_of_registration SET ?`;
+  db.query(query, data, (err, results) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    res.json({ message: 'Registration added successfully', id: results.insertId });
+  });
 });
-const PORT = 5000;
 
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+// Get a registration by registration_no
+app.get('/registrations/:id', (req, res) => {
+  const { id } = req.params;
+  const query = `SELECT * FROM certificate_of_registration WHERE registration_no = ?`;
+  db.query(query, [id], (err, results) => {
+    if (err) return res.status(500).send(err);
+    if (results.length === 0) return res.status(404).send({ message: 'Not found' });
+    res.json(results[0]);
+  });
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
