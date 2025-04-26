@@ -209,7 +209,6 @@ const CertificateOfRegistration = () => {
                             style={{
                               width: "3.8cm",
                               height: "3.8cm",
-                              marginRight: "30px",
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
@@ -548,7 +547,7 @@ const CertificateOfRegistration = () => {
                   />
                 </td>
                 <td
-                  colSpan={10}
+                  colSpan={12}
                   style={{
 
                     fontSize: "50%",
@@ -690,7 +689,7 @@ const CertificateOfRegistration = () => {
                   />
                 </td>
                 <td
-                  colSpan={6}
+                  colSpan={8}
 
                   style={{
 
@@ -796,7 +795,7 @@ const CertificateOfRegistration = () => {
               </tr>
 
               <tr>
-
+                    
               </tr>
               <tr>
 
@@ -816,6 +815,7 @@ const CertificateOfRegistration = () => {
                   }}
                 >
                   CODE
+                  
                 </td>
                 <td
                   colSpan={8}
@@ -960,6 +960,48 @@ const CertificateOfRegistration = () => {
               </tr>
               {Array.from({ length: 12 }).map((_, index) => {  // change length for rows
                 const item = filteredData[index] || {};
+                const subcode = [
+                  "DBMSLAB2", "DBMSLEC2", "GEELECCP", "GEPEHEF2",
+                  "INTHCILB", "INTHCILC", "IPATLAB1", "IPATLEC1",
+                  "NETWKLB1", "NETWKLC1", "WEBDVLB2", "WEBDVLC2"
+                ];
+                const subtitle = [
+                  "Database Management System 2 (Laboratory)", "Database Management System 2 (Lecture)", "Communicative Proficiency in Business Correspondence and Research Writing", 
+                  "Physical Activity Towards Health and Fitness II", "Introduction to Human Computer Interaction (Laboratory) ", "Introduction to Human Computer Interaction (Lecture)", 
+                  "Integrative Programming and Technologies 1 (Laboratory)", "Integrative Programming and Technologies 1 (Lecture)",
+                  "Networking 1 (Laboratory)", "Networking 1 (Lecture) ", "Web Development 2 (Laboratory)", "Web Development 2 (Lecture)"
+                ];
+                const unitlec = [
+                  "0", "2", "3", "2",
+                  "0", "2", "0", "1",
+                  "0", "2", "0", "2"
+                ];
+                const unitlab = [
+                  "1", "0", "0", "0",
+                  "0", "0", "2", "0",
+                  "1", "0", "1", "0"
+                ];
+                const unitcred = [
+                  "1", "2", "3", "2",
+                  "1", "2", "2", "1",
+                  "1", "2", "1", "2"
+                ];
+                const unittuition = [
+                  "1", "2", "3", "2",
+                  "1", "2", "2", "1",
+                  "1", "2", "1", "2"
+                ];
+                const schedule = [
+                  "TH 03:00PM-06:00PM", "M 09:00AM-11:00AM", "T 02:00PM-05:00PM", "T 07:00AM-09:00AM",
+                  "T 10:00AM-01:00PM", "M 11:00AM-01:00PM", "T 06:00PM-09:00PM", "M 06:00PM-08:00PM",
+                  "TH 07:00AM-10:00AM", "M 04:00PM-05:00PM", "TH 11:00AM-02:00PM", "M 01:00PM-03:00PM"
+                ];
+                const faculty = [
+                  "Carlos, Ernanie", "Carlos, Ernanie", "Pardito, Ranilo", "Viajar, Leo Robert",
+                  "Macasil, Ma. Jasmine Rose", "Macasil, Ma. Jasmine Rose", "San Jose, Dhan", "San Jose, Dhani",
+                  "Almazan, Edmund", "Almazan, Edmund", "Sison, Edgardo", "Sison, Edgardo"
+                ];
+                
                 return (
                   <tr key={index}>
                     <td
@@ -972,16 +1014,18 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.eligibilityName || ""}
+                        value={item.eligibilityName || subcode[index]}
                         style={{
                           color: "black",
                           width: "98%",
                           border: "none",
                           outline: "none",
-                          background: "none"
+                          background: "none",
+                          marginLeft: "3px"
                         }}
                       />
                     </td>
+                    
                     <td
                       colSpan={8}
                       style={{
@@ -992,11 +1036,10 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.eligibilityRating || ""}
+                        value={item.eligibilityRating || subtitle[index]}
                         style={{
                           color: "black",
                           width: "98%",
-                          textAlign: "center",
                           border: "none",
                           outline: "none",
                           background: "none"
@@ -1013,7 +1056,7 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.eligibilityDateOfExam || ""}
+                        value={item.eligibilityDateOfExam || unitlec[index]}
                         style={{
                           color: "black",
                           width: "98%",
@@ -1034,7 +1077,7 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.eligibilityPlaceOfExam || ""}
+                        value={item.eligibilityPlaceOfExam || unitlab[index]}
                         style={{
                           color: "black",
                           width: "98%",
@@ -1054,7 +1097,7 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.licenseNumber || ""}
+                        value={item.licenseNumber || unitcred[index]}
                         style={{
                           color: "black",
                           width: "98%",
@@ -1075,12 +1118,11 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.DateOfValidity || ""}
+                        value={item.DateOfValidity || unittuition[index]}
                         style={{
                           color: "black",
                           width: "98%",
                           textAlign: "center",
-                          fontSize: "0.45rem",
                           border: "none",
                           outline: "none",
                           background: "none"
@@ -1097,12 +1139,11 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.DateOfValidity || ""}
+                        value={item.DateOfValidity || "BSINFOTECH2B"}
                         style={{
                           color: "black",
                           width: "98%",
                           textAlign: "center",
-                          fontSize: "0.45rem",
                           border: "none",
                           outline: "none",
                           background: "none"
@@ -1119,12 +1160,10 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.DateOfValidity || ""}
+                        value={item.DateOfValidity || schedule[index]}
                         style={{
                           color: "black",
                           width: "98%",
-                          textAlign: "center",
-                          fontSize: "0.45rem",
                           border: "none",
                           outline: "none",
                           background: "none"
@@ -1141,12 +1180,10 @@ const CertificateOfRegistration = () => {
                     >
                       <input
                         type="text"
-                        value={item.DateOfValidity || ""}
+                        value={item.DateOfValidity || faculty[index]}
                         style={{
                           color: "black",
                           width: "98%",
-                          textAlign: "center",
-                          fontSize: "0.45rem",
                           border: "none",
                           outline: "none",
                           background: "none"
