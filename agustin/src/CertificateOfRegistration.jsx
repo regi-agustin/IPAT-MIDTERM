@@ -1117,14 +1117,18 @@ const CertificateOfRegistration = () => {
                         >
                             {
                                 (() => {
-                                    const faculty = certificateData.subject_faculty[index];
-                                    if (!faculty) return ""; 
+                                    let faculty = certificateData.subject_faculty[index] || "";
 
-                                    const words = faculty.trim().split(/\s+/); 
-                                    if (words.length > 1) {
-                                        return `${words[0]}, ${words.slice(1).join(" ")}`;
+                                    // Add a comma after "Jose" if not already present
+                                    faculty = faculty.replace(/\bJose\b(?!,)/, "Jose,");
+                                    
+                                    // Add a comma after the first word, but not if the first word is "San"
+                                    const words = faculty.trim().split(/\s+/);
+                                    if (words.length > 1 && words[0] !== "San" && !words[0].endsWith(",")) {
+                                        words[0] += ",";
                                     }
-                                    return words[0]; 
+
+                                    return words.join(" ");
                                 })()
                             }
                         </div>
