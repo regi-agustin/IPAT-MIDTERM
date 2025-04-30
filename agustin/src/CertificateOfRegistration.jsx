@@ -1106,15 +1106,29 @@ const CertificateOfRegistration = () => {
                                     padding: "3px",
                                 }}
                             >
-                                <div
-                                    style={{
-                                        color: "black",
-                                        width: "100%",
-                                        textAlign: "left",
-                                    }}
-                                >
-                                    {certificateData.subject_faculty[index]}
-                                </div>
+                        
+                        {/* for comma after surname */}
+                        <div
+                            style={{
+                                color: "black",
+                                width: "100%",
+                                textAlign: "left",
+                            }}
+                        >
+                            {
+                                (() => {
+                                    const faculty = certificateData.subject_faculty[index];
+                                    if (!faculty) return ""; 
+
+                                    const words = faculty.trim().split(/\s+/); 
+                                    if (words.length > 1) {
+                                        return `${words[0]}, ${words.slice(1).join(" ")}`;
+                                    }
+                                    return words[0]; 
+                                })()
+                            }
+                        </div>
+
                             </td>
 
                               </tr>
