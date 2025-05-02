@@ -3066,9 +3066,9 @@ const CertificateOfRegistration = () => {
                                   }}
                               >
                                   <b>
-                                      <i style={{ color: "black", textAlign: "center", display: "block" }}>
+                                      <p style={{ color: "black", textAlign: "center", display: "block", margin:"0px"}}>
                                           KEEP THIS CERTIFICATE. YOU WILL BE REQUIRED TO PRESENT THIS IN ALL YOUR DEALINGS WITH THE COLLEGE.
-                                      </i>
+                                      </p>
                                   </b>
                               </td>
                           </tr>
