@@ -1082,7 +1082,7 @@ const CertificateOfRegistration = () => {
                             <td
                                 colSpan={9}
                                 style={{
-                                    fontSize: "90%",
+                                    fontSize: "89%",
                                     padding: "1px",
                                 }}
                             >
